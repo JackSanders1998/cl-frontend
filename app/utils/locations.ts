@@ -1,6 +1,7 @@
 import { notFound } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import axios from 'redaxios'
+import { CL_BACKEND_URL } from './constants'
 
 export type LocationType = {
   location_id: string,
@@ -16,7 +17,7 @@ export const fetchLocation = createServerFn({ method: 'GET' })
   .handler(async ({ data }) => {
     console.info(`Fetching location with id ${data}...`)
     const location = await axios
-      .get<LocationType>(`http://127.0.0.1:8000/locations/${data}`, {
+      .get<LocationType>(`${CL_BACKEND_URL}locations/${data}`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.MY_TOKEN}`,
@@ -40,7 +41,7 @@ export const fetchLocations = createServerFn({ method: 'GET' }).handler(
     console.info('Fetching locations...')
     await new Promise((r) => setTimeout(r, 1000))
     return axios
-      .get<Array<LocationType>>('http://127.0.0.1:8000/locations', {
+      .get<Array<LocationType>>(`${CL_BACKEND_URL}locations`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.MY_TOKEN}`,

@@ -2,6 +2,7 @@ import { notFound } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import axios from 'redaxios'
 import { LocationType } from './locations'
+import { CL_BACKEND_URL } from './constants'
 
 export type SeshType = {
     sesh_id: string
@@ -20,7 +21,7 @@ export const fetchSesh = createServerFn({ method: 'GET' })
     .handler(async ({ data }) => {
         console.info(`Fetching sesh with id ${data}...`)
         return axios
-            .get<SeshType>(`http://127.0.0.1:8000/seshes/${data}`, {
+            .get<SeshType>(`${CL_BACKEND_URL}seshes/${data}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${process.env.MY_TOKEN}`,
@@ -41,7 +42,7 @@ export const fetchSeshes = createServerFn({ method: 'GET' }).handler(
         console.info('Fetching seshes...')
         await new Promise((r) => setTimeout(r, 1000))
         return await axios
-            .get<Array<SeshType>>('http://127.0.0.1:8000/seshes', {
+            .get<Array<SeshType>>(`${CL_BACKEND_URL}seshes`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${process.env.MY_TOKEN}`,
