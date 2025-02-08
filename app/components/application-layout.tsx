@@ -8,9 +8,7 @@ import {
   DropdownLabel,
   DropdownMenu,
 } from "@/components/dropdown";
-import {
-  Navbar,
-} from "@/components/navbar";
+import { Navbar } from "@/components/navbar";
 import {
   Sidebar,
   SidebarBody,
@@ -35,9 +33,7 @@ import {
   TicketIcon,
 } from "@heroicons/react/20/solid";
 import { Avatar } from "@/components/avatar";
-import {
-  useLocation,
-} from "@tanstack/react-router";
+import { useLocation } from "@tanstack/react-router";
 import {
   SignedIn,
   SignedOut,
@@ -108,6 +104,13 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
               >
                 <TicketIcon />
                 <SidebarLabel>Locations</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem
+                href="/climbs"
+                current={pathname.startsWith("/climbs")}
+              >
+                <TicketIcon />
+                <SidebarLabel>Climbs</SidebarLabel>
               </SidebarItem>
               <SidebarItem
                 href="/settings"

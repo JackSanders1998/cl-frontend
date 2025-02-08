@@ -1,31 +1,31 @@
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
-import { fetchLocations } from '@/utils/locations.js'
+import { fetchClimbs } from '@/utils/climbs.js'
 
-export const Route = createFileRoute('/_authed/locations/')({
-  loader: () => fetchLocations(),
-  component: LocationsComponent,
+export const Route = createFileRoute('/_authed/climbs/')({
+  loader: () => fetchClimbs(),
+  component: ClimbsComponent,
 })
 
-function LocationsComponent() {
-  const locations = Route.useLoaderData()
+function ClimbsComponent() {
+  const climbs = Route.useLoaderData()
 
   return (
     <div className="p-2 flex gap-2">
       <ul className="list-disc pl-4">
-        {locations.map((location) => {
+        {climbs.map((climb) => {
           return (
-            <li key={location.location_id} className="whitespace-nowrap">
+            <li key={climb.climb_id} className="whitespace-nowrap">
               <Link
-                to="/locations/$locationId"
+                to="/climbs/$climbId"
                 params={{
-                  locationId: location.location_id,
+                  climbId: climb.climb_id,
                 }}
                 className="block py-1 text-blue-800 hover:text-blue-600"
                 activeProps={{
                   className: 'text-black font-bold',
                 }}
               >
-                <div>{location.name.substring(0, 20)}</div>
+                <div>{climb.climb_type} {climb.grade}</div>
               </Link>
             </li>
           )

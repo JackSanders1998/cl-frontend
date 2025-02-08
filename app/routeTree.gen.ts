@@ -13,13 +13,13 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
-import { Route as AuthedSeshesImport } from './routes/_authed/seshes'
-import { Route as AuthedLocationsImport } from './routes/_authed/locations'
 import { Route as AuthedSeshesIndexImport } from './routes/_authed/seshes/index'
 import { Route as AuthedLocationsIndexImport } from './routes/_authed/locations/index'
+import { Route as AuthedClimbsIndexImport } from './routes/_authed/climbs/index'
 import { Route as AuthedSeshesSeshIdImport } from './routes/_authed/seshes/$seshId'
 import { Route as AuthedProfileSplatImport } from './routes/_authed/profile.$'
 import { Route as AuthedLocationsLocationIdImport } from './routes/_authed/locations/$locationId'
+import { Route as AuthedClimbsClimbIdImport } from './routes/_authed/climbs/$climbId'
 
 // Create/Update Routes
 
@@ -34,34 +34,28 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthedSeshesRoute = AuthedSeshesImport.update({
-  id: '/seshes',
-  path: '/seshes',
-  getParentRoute: () => AuthedRoute,
-} as any)
-
-const AuthedLocationsRoute = AuthedLocationsImport.update({
-  id: '/locations',
-  path: '/locations',
-  getParentRoute: () => AuthedRoute,
-} as any)
-
 const AuthedSeshesIndexRoute = AuthedSeshesIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthedSeshesRoute,
+  id: '/seshes/',
+  path: '/seshes/',
+  getParentRoute: () => AuthedRoute,
 } as any)
 
 const AuthedLocationsIndexRoute = AuthedLocationsIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthedLocationsRoute,
+  id: '/locations/',
+  path: '/locations/',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedClimbsIndexRoute = AuthedClimbsIndexImport.update({
+  id: '/climbs/',
+  path: '/climbs/',
+  getParentRoute: () => AuthedRoute,
 } as any)
 
 const AuthedSeshesSeshIdRoute = AuthedSeshesSeshIdImport.update({
-  id: '/$seshId',
-  path: '/$seshId',
-  getParentRoute: () => AuthedSeshesRoute,
+  id: '/seshes/$seshId',
+  path: '/seshes/$seshId',
+  getParentRoute: () => AuthedRoute,
 } as any)
 
 const AuthedProfileSplatRoute = AuthedProfileSplatImport.update({
@@ -71,9 +65,15 @@ const AuthedProfileSplatRoute = AuthedProfileSplatImport.update({
 } as any)
 
 const AuthedLocationsLocationIdRoute = AuthedLocationsLocationIdImport.update({
-  id: '/$locationId',
-  path: '/$locationId',
-  getParentRoute: () => AuthedLocationsRoute,
+  id: '/locations/$locationId',
+  path: '/locations/$locationId',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedClimbsClimbIdRoute = AuthedClimbsClimbIdImport.update({
+  id: '/climbs/$climbId',
+  path: '/climbs/$climbId',
+  getParentRoute: () => AuthedRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -94,26 +94,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedImport
       parentRoute: typeof rootRoute
     }
-    '/_authed/locations': {
-      id: '/_authed/locations'
-      path: '/locations'
-      fullPath: '/locations'
-      preLoaderRoute: typeof AuthedLocationsImport
-      parentRoute: typeof AuthedImport
-    }
-    '/_authed/seshes': {
-      id: '/_authed/seshes'
-      path: '/seshes'
-      fullPath: '/seshes'
-      preLoaderRoute: typeof AuthedSeshesImport
+    '/_authed/climbs/$climbId': {
+      id: '/_authed/climbs/$climbId'
+      path: '/climbs/$climbId'
+      fullPath: '/climbs/$climbId'
+      preLoaderRoute: typeof AuthedClimbsClimbIdImport
       parentRoute: typeof AuthedImport
     }
     '/_authed/locations/$locationId': {
       id: '/_authed/locations/$locationId'
-      path: '/$locationId'
+      path: '/locations/$locationId'
       fullPath: '/locations/$locationId'
       preLoaderRoute: typeof AuthedLocationsLocationIdImport
-      parentRoute: typeof AuthedLocationsImport
+      parentRoute: typeof AuthedImport
     }
     '/_authed/profile/$': {
       id: '/_authed/profile/$'
@@ -124,68 +117,55 @@ declare module '@tanstack/react-router' {
     }
     '/_authed/seshes/$seshId': {
       id: '/_authed/seshes/$seshId'
-      path: '/$seshId'
+      path: '/seshes/$seshId'
       fullPath: '/seshes/$seshId'
       preLoaderRoute: typeof AuthedSeshesSeshIdImport
-      parentRoute: typeof AuthedSeshesImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/climbs/': {
+      id: '/_authed/climbs/'
+      path: '/climbs'
+      fullPath: '/climbs'
+      preLoaderRoute: typeof AuthedClimbsIndexImport
+      parentRoute: typeof AuthedImport
     }
     '/_authed/locations/': {
       id: '/_authed/locations/'
-      path: '/'
-      fullPath: '/locations/'
+      path: '/locations'
+      fullPath: '/locations'
       preLoaderRoute: typeof AuthedLocationsIndexImport
-      parentRoute: typeof AuthedLocationsImport
+      parentRoute: typeof AuthedImport
     }
     '/_authed/seshes/': {
       id: '/_authed/seshes/'
-      path: '/'
-      fullPath: '/seshes/'
+      path: '/seshes'
+      fullPath: '/seshes'
       preLoaderRoute: typeof AuthedSeshesIndexImport
-      parentRoute: typeof AuthedSeshesImport
+      parentRoute: typeof AuthedImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface AuthedLocationsRouteChildren {
+interface AuthedRouteChildren {
+  AuthedClimbsClimbIdRoute: typeof AuthedClimbsClimbIdRoute
   AuthedLocationsLocationIdRoute: typeof AuthedLocationsLocationIdRoute
-  AuthedLocationsIndexRoute: typeof AuthedLocationsIndexRoute
-}
-
-const AuthedLocationsRouteChildren: AuthedLocationsRouteChildren = {
-  AuthedLocationsLocationIdRoute: AuthedLocationsLocationIdRoute,
-  AuthedLocationsIndexRoute: AuthedLocationsIndexRoute,
-}
-
-const AuthedLocationsRouteWithChildren = AuthedLocationsRoute._addFileChildren(
-  AuthedLocationsRouteChildren,
-)
-
-interface AuthedSeshesRouteChildren {
+  AuthedProfileSplatRoute: typeof AuthedProfileSplatRoute
   AuthedSeshesSeshIdRoute: typeof AuthedSeshesSeshIdRoute
+  AuthedClimbsIndexRoute: typeof AuthedClimbsIndexRoute
+  AuthedLocationsIndexRoute: typeof AuthedLocationsIndexRoute
   AuthedSeshesIndexRoute: typeof AuthedSeshesIndexRoute
 }
 
-const AuthedSeshesRouteChildren: AuthedSeshesRouteChildren = {
-  AuthedSeshesSeshIdRoute: AuthedSeshesSeshIdRoute,
-  AuthedSeshesIndexRoute: AuthedSeshesIndexRoute,
-}
-
-const AuthedSeshesRouteWithChildren = AuthedSeshesRoute._addFileChildren(
-  AuthedSeshesRouteChildren,
-)
-
-interface AuthedRouteChildren {
-  AuthedLocationsRoute: typeof AuthedLocationsRouteWithChildren
-  AuthedSeshesRoute: typeof AuthedSeshesRouteWithChildren
-  AuthedProfileSplatRoute: typeof AuthedProfileSplatRoute
-}
-
 const AuthedRouteChildren: AuthedRouteChildren = {
-  AuthedLocationsRoute: AuthedLocationsRouteWithChildren,
-  AuthedSeshesRoute: AuthedSeshesRouteWithChildren,
+  AuthedClimbsClimbIdRoute: AuthedClimbsClimbIdRoute,
+  AuthedLocationsLocationIdRoute: AuthedLocationsLocationIdRoute,
   AuthedProfileSplatRoute: AuthedProfileSplatRoute,
+  AuthedSeshesSeshIdRoute: AuthedSeshesSeshIdRoute,
+  AuthedClimbsIndexRoute: AuthedClimbsIndexRoute,
+  AuthedLocationsIndexRoute: AuthedLocationsIndexRoute,
+  AuthedSeshesIndexRoute: AuthedSeshesIndexRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -194,21 +174,23 @@ const AuthedRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
-  '/locations': typeof AuthedLocationsRouteWithChildren
-  '/seshes': typeof AuthedSeshesRouteWithChildren
+  '/climbs/$climbId': typeof AuthedClimbsClimbIdRoute
   '/locations/$locationId': typeof AuthedLocationsLocationIdRoute
   '/profile/$': typeof AuthedProfileSplatRoute
   '/seshes/$seshId': typeof AuthedSeshesSeshIdRoute
-  '/locations/': typeof AuthedLocationsIndexRoute
-  '/seshes/': typeof AuthedSeshesIndexRoute
+  '/climbs': typeof AuthedClimbsIndexRoute
+  '/locations': typeof AuthedLocationsIndexRoute
+  '/seshes': typeof AuthedSeshesIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
+  '/climbs/$climbId': typeof AuthedClimbsClimbIdRoute
   '/locations/$locationId': typeof AuthedLocationsLocationIdRoute
   '/profile/$': typeof AuthedProfileSplatRoute
   '/seshes/$seshId': typeof AuthedSeshesSeshIdRoute
+  '/climbs': typeof AuthedClimbsIndexRoute
   '/locations': typeof AuthedLocationsIndexRoute
   '/seshes': typeof AuthedSeshesIndexRoute
 }
@@ -217,11 +199,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
-  '/_authed/locations': typeof AuthedLocationsRouteWithChildren
-  '/_authed/seshes': typeof AuthedSeshesRouteWithChildren
+  '/_authed/climbs/$climbId': typeof AuthedClimbsClimbIdRoute
   '/_authed/locations/$locationId': typeof AuthedLocationsLocationIdRoute
   '/_authed/profile/$': typeof AuthedProfileSplatRoute
   '/_authed/seshes/$seshId': typeof AuthedSeshesSeshIdRoute
+  '/_authed/climbs/': typeof AuthedClimbsIndexRoute
   '/_authed/locations/': typeof AuthedLocationsIndexRoute
   '/_authed/seshes/': typeof AuthedSeshesIndexRoute
 }
@@ -231,31 +213,33 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/locations'
-    | '/seshes'
+    | '/climbs/$climbId'
     | '/locations/$locationId'
     | '/profile/$'
     | '/seshes/$seshId'
-    | '/locations/'
-    | '/seshes/'
+    | '/climbs'
+    | '/locations'
+    | '/seshes'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
+    | '/climbs/$climbId'
     | '/locations/$locationId'
     | '/profile/$'
     | '/seshes/$seshId'
+    | '/climbs'
     | '/locations'
     | '/seshes'
   id:
     | '__root__'
     | '/'
     | '/_authed'
-    | '/_authed/locations'
-    | '/_authed/seshes'
+    | '/_authed/climbs/$climbId'
     | '/_authed/locations/$locationId'
     | '/_authed/profile/$'
     | '/_authed/seshes/$seshId'
+    | '/_authed/climbs/'
     | '/_authed/locations/'
     | '/_authed/seshes/'
   fileRoutesById: FileRoutesById
@@ -291,30 +275,22 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
-        "/_authed/locations",
-        "/_authed/seshes",
-        "/_authed/profile/$"
-      ]
-    },
-    "/_authed/locations": {
-      "filePath": "_authed/locations.tsx",
-      "parent": "/_authed",
-      "children": [
+        "/_authed/climbs/$climbId",
         "/_authed/locations/$locationId",
-        "/_authed/locations/"
-      ]
-    },
-    "/_authed/seshes": {
-      "filePath": "_authed/seshes.tsx",
-      "parent": "/_authed",
-      "children": [
+        "/_authed/profile/$",
         "/_authed/seshes/$seshId",
+        "/_authed/climbs/",
+        "/_authed/locations/",
         "/_authed/seshes/"
       ]
     },
+    "/_authed/climbs/$climbId": {
+      "filePath": "_authed/climbs/$climbId.tsx",
+      "parent": "/_authed"
+    },
     "/_authed/locations/$locationId": {
       "filePath": "_authed/locations/$locationId.tsx",
-      "parent": "/_authed/locations"
+      "parent": "/_authed"
     },
     "/_authed/profile/$": {
       "filePath": "_authed/profile.$.tsx",
@@ -322,15 +298,19 @@ export const routeTree = rootRoute
     },
     "/_authed/seshes/$seshId": {
       "filePath": "_authed/seshes/$seshId.tsx",
-      "parent": "/_authed/seshes"
+      "parent": "/_authed"
+    },
+    "/_authed/climbs/": {
+      "filePath": "_authed/climbs/index.tsx",
+      "parent": "/_authed"
     },
     "/_authed/locations/": {
       "filePath": "_authed/locations/index.tsx",
-      "parent": "/_authed/locations"
+      "parent": "/_authed"
     },
     "/_authed/seshes/": {
       "filePath": "_authed/seshes/index.tsx",
-      "parent": "/_authed/seshes"
+      "parent": "/_authed"
     }
   }
 }

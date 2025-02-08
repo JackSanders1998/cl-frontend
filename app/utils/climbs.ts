@@ -1,28 +1,28 @@
 import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import axios from "redaxios";
-import { LocationType } from "./locations";
 import { CL_BACKEND_URL } from "./constants";
-import { ClimbType } from "./climbs";
 
-export type SeshType = {
+export type ClimbType = {
+  climb_id: string;
   sesh_id: string;
-  user_id: string;
-  notes: string;
-  start: string;
-  end: string;
-  created_at: string;
-  updated_at: string;
-  location: Omit<LocationType, "user_id">;
-  climbs: Omit<ClimbType, 'sesh_id'>[];
+  climb_type: string;
+  style: string;
+  scale: string;
+  grade: string;
+  attempt: string;
+  pointer: string,
+  notes: string,
+  created_at: string,
+  updated_at: string,
 };
 
-export const fetchSesh = createServerFn({ method: "GET" })
-  .validator((seshId: string) => seshId)
+export const fetchClimb = createServerFn({ method: "GET" })
+  .validator((climbId: string) => climbId)
   .handler(async ({ data }) => {
-    console.info(`Fetching sesh with id ${data}...`);
-    return axios
-      .get<SeshType>(`${CL_BACKEND_URL}seshes/${data}`, {
+    console.info(`Fetching climb with id ${data}...`);
+    const climb = await axios
+      .get<ClimbType>(`${CL_BACKEND_URL}climbs/${data}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.MY_TOKEN}`,
@@ -36,14 +36,16 @@ export const fetchSesh = createServerFn({ method: "GET" })
         }
         throw err;
       });
+
+    return climb;
   });
 
-export const fetchSeshes = createServerFn({ method: "GET" }).handler(
+export const fetchClimbs = createServerFn({ method: "GET" }).handler(
   async () => {
-    console.info("Fetching seshes...");
+    console.info("Fetching climbs...");
     await new Promise((r) => setTimeout(r, 1000));
-    return await axios
-      .get<Array<SeshType>>(`${CL_BACKEND_URL}seshes`, {
+    return axios
+      .get<Array<ClimbType>>(`${CL_BACKEND_URL}climbs`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.MY_TOKEN}`,
