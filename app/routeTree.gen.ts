@@ -13,10 +13,13 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthedSeshesImport } from './routes/_authed/seshes'
 import { Route as AuthedLocationsImport } from './routes/_authed/locations'
-import { Route as AuthedLocationsIndexImport } from './routes/_authed/locations.index'
+import { Route as AuthedSeshesIndexImport } from './routes/_authed/seshes/index'
+import { Route as AuthedLocationsIndexImport } from './routes/_authed/locations/index'
+import { Route as AuthedSeshesSeshIdImport } from './routes/_authed/seshes/$seshId'
 import { Route as AuthedProfileSplatImport } from './routes/_authed/profile.$'
-import { Route as AuthedLocationsLocationIdImport } from './routes/_authed/locations.$locationId'
+import { Route as AuthedLocationsLocationIdImport } from './routes/_authed/locations/$locationId'
 
 // Create/Update Routes
 
@@ -31,16 +34,34 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthedSeshesRoute = AuthedSeshesImport.update({
+  id: '/seshes',
+  path: '/seshes',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
 const AuthedLocationsRoute = AuthedLocationsImport.update({
   id: '/locations',
   path: '/locations',
   getParentRoute: () => AuthedRoute,
 } as any)
 
+const AuthedSeshesIndexRoute = AuthedSeshesIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthedSeshesRoute,
+} as any)
+
 const AuthedLocationsIndexRoute = AuthedLocationsIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthedLocationsRoute,
+} as any)
+
+const AuthedSeshesSeshIdRoute = AuthedSeshesSeshIdImport.update({
+  id: '/$seshId',
+  path: '/$seshId',
+  getParentRoute: () => AuthedSeshesRoute,
 } as any)
 
 const AuthedProfileSplatRoute = AuthedProfileSplatImport.update({
@@ -80,6 +101,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedLocationsImport
       parentRoute: typeof AuthedImport
     }
+    '/_authed/seshes': {
+      id: '/_authed/seshes'
+      path: '/seshes'
+      fullPath: '/seshes'
+      preLoaderRoute: typeof AuthedSeshesImport
+      parentRoute: typeof AuthedImport
+    }
     '/_authed/locations/$locationId': {
       id: '/_authed/locations/$locationId'
       path: '/$locationId'
@@ -94,12 +122,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedProfileSplatImport
       parentRoute: typeof AuthedImport
     }
+    '/_authed/seshes/$seshId': {
+      id: '/_authed/seshes/$seshId'
+      path: '/$seshId'
+      fullPath: '/seshes/$seshId'
+      preLoaderRoute: typeof AuthedSeshesSeshIdImport
+      parentRoute: typeof AuthedSeshesImport
+    }
     '/_authed/locations/': {
       id: '/_authed/locations/'
       path: '/'
       fullPath: '/locations/'
       preLoaderRoute: typeof AuthedLocationsIndexImport
       parentRoute: typeof AuthedLocationsImport
+    }
+    '/_authed/seshes/': {
+      id: '/_authed/seshes/'
+      path: '/'
+      fullPath: '/seshes/'
+      preLoaderRoute: typeof AuthedSeshesIndexImport
+      parentRoute: typeof AuthedSeshesImport
     }
   }
 }
@@ -120,13 +162,29 @@ const AuthedLocationsRouteWithChildren = AuthedLocationsRoute._addFileChildren(
   AuthedLocationsRouteChildren,
 )
 
+interface AuthedSeshesRouteChildren {
+  AuthedSeshesSeshIdRoute: typeof AuthedSeshesSeshIdRoute
+  AuthedSeshesIndexRoute: typeof AuthedSeshesIndexRoute
+}
+
+const AuthedSeshesRouteChildren: AuthedSeshesRouteChildren = {
+  AuthedSeshesSeshIdRoute: AuthedSeshesSeshIdRoute,
+  AuthedSeshesIndexRoute: AuthedSeshesIndexRoute,
+}
+
+const AuthedSeshesRouteWithChildren = AuthedSeshesRoute._addFileChildren(
+  AuthedSeshesRouteChildren,
+)
+
 interface AuthedRouteChildren {
   AuthedLocationsRoute: typeof AuthedLocationsRouteWithChildren
+  AuthedSeshesRoute: typeof AuthedSeshesRouteWithChildren
   AuthedProfileSplatRoute: typeof AuthedProfileSplatRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedLocationsRoute: AuthedLocationsRouteWithChildren,
+  AuthedSeshesRoute: AuthedSeshesRouteWithChildren,
   AuthedProfileSplatRoute: AuthedProfileSplatRoute,
 }
 
@@ -137,9 +195,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
   '/locations': typeof AuthedLocationsRouteWithChildren
+  '/seshes': typeof AuthedSeshesRouteWithChildren
   '/locations/$locationId': typeof AuthedLocationsLocationIdRoute
   '/profile/$': typeof AuthedProfileSplatRoute
+  '/seshes/$seshId': typeof AuthedSeshesSeshIdRoute
   '/locations/': typeof AuthedLocationsIndexRoute
+  '/seshes/': typeof AuthedSeshesIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -147,7 +208,9 @@ export interface FileRoutesByTo {
   '': typeof AuthedRouteWithChildren
   '/locations/$locationId': typeof AuthedLocationsLocationIdRoute
   '/profile/$': typeof AuthedProfileSplatRoute
+  '/seshes/$seshId': typeof AuthedSeshesSeshIdRoute
   '/locations': typeof AuthedLocationsIndexRoute
+  '/seshes': typeof AuthedSeshesIndexRoute
 }
 
 export interface FileRoutesById {
@@ -155,9 +218,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/_authed/locations': typeof AuthedLocationsRouteWithChildren
+  '/_authed/seshes': typeof AuthedSeshesRouteWithChildren
   '/_authed/locations/$locationId': typeof AuthedLocationsLocationIdRoute
   '/_authed/profile/$': typeof AuthedProfileSplatRoute
+  '/_authed/seshes/$seshId': typeof AuthedSeshesSeshIdRoute
   '/_authed/locations/': typeof AuthedLocationsIndexRoute
+  '/_authed/seshes/': typeof AuthedSeshesIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -166,19 +232,32 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/locations'
+    | '/seshes'
     | '/locations/$locationId'
     | '/profile/$'
+    | '/seshes/$seshId'
     | '/locations/'
+    | '/seshes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/locations/$locationId' | '/profile/$' | '/locations'
+  to:
+    | '/'
+    | ''
+    | '/locations/$locationId'
+    | '/profile/$'
+    | '/seshes/$seshId'
+    | '/locations'
+    | '/seshes'
   id:
     | '__root__'
     | '/'
     | '/_authed'
     | '/_authed/locations'
+    | '/_authed/seshes'
     | '/_authed/locations/$locationId'
     | '/_authed/profile/$'
+    | '/_authed/seshes/$seshId'
     | '/_authed/locations/'
+    | '/_authed/seshes/'
   fileRoutesById: FileRoutesById
 }
 
@@ -213,6 +292,7 @@ export const routeTree = rootRoute
       "filePath": "_authed.tsx",
       "children": [
         "/_authed/locations",
+        "/_authed/seshes",
         "/_authed/profile/$"
       ]
     },
@@ -224,17 +304,33 @@ export const routeTree = rootRoute
         "/_authed/locations/"
       ]
     },
+    "/_authed/seshes": {
+      "filePath": "_authed/seshes.tsx",
+      "parent": "/_authed",
+      "children": [
+        "/_authed/seshes/$seshId",
+        "/_authed/seshes/"
+      ]
+    },
     "/_authed/locations/$locationId": {
-      "filePath": "_authed/locations.$locationId.tsx",
+      "filePath": "_authed/locations/$locationId.tsx",
       "parent": "/_authed/locations"
     },
     "/_authed/profile/$": {
       "filePath": "_authed/profile.$.tsx",
       "parent": "/_authed"
     },
+    "/_authed/seshes/$seshId": {
+      "filePath": "_authed/seshes/$seshId.tsx",
+      "parent": "/_authed/seshes"
+    },
     "/_authed/locations/": {
-      "filePath": "_authed/locations.index.tsx",
+      "filePath": "_authed/locations/index.tsx",
       "parent": "/_authed/locations"
+    },
+    "/_authed/seshes/": {
+      "filePath": "_authed/seshes/index.tsx",
+      "parent": "/_authed/seshes"
     }
   }
 }

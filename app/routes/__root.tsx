@@ -111,6 +111,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             Locations
           </Link>
+          <Link
+            to="/seshes"
+            activeProps={{
+              className: 'font-bold',
+            }}
+          >
+            Seshes
+          </Link>
           <div className="ml-auto">
             <SignedIn>
               <UserButton />

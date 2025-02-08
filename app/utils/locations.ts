@@ -39,7 +39,7 @@ export const fetchLocations = createServerFn({ method: 'GET' }).handler(
   async () => {
     console.info('Fetching locations...')
     await new Promise((r) => setTimeout(r, 1000))
-    const res = await axios
+    return axios
       .get<Array<LocationType>>('http://127.0.0.1:8000/locations', {
         headers: {
             "Content-Type": "application/json",
@@ -47,6 +47,5 @@ export const fetchLocations = createServerFn({ method: 'GET' }).handler(
           },
       })
       .then((r) => r.data.slice(0, 10));
-    return res;
   },
 )
