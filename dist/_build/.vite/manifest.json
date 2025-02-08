@@ -1,0 +1,139 @@
+{
+  "/Users/jack/dev/cl-frontend/app/styles/app.css": {
+    "file": "assets/app-CBNuGcbA.css",
+    "src": "/Users/jack/dev/cl-frontend/app/styles/app.css"
+  },
+  "_client-m4m4Z0YJ.js": {
+    "file": "assets/client-m4m4Z0YJ.js",
+    "name": "client",
+    "dynamicImports": [
+      "app/routes/index.tsx?tsr-split",
+      "app/routes/_authed/seshes/index.tsx?tsr-split",
+      "app/routes/_authed/seshes/index.tsx?tsr-split",
+      "app/routes/_authed/locations/index.tsx?tsr-split",
+      "app/routes/_authed/locations/index.tsx?tsr-split",
+      "app/routes/_authed/climbs/index.tsx?tsr-split",
+      "app/routes/_authed/climbs/index.tsx?tsr-split",
+      "app/routes/_authed/seshes/$seshId.tsx?tsr-split",
+      "app/routes/_authed/seshes/$seshId.tsx?tsr-split",
+      "app/routes/_authed/profile.$.tsx?tsr-split",
+      "app/routes/_authed/profile.$.tsx?tsr-split",
+      "app/routes/_authed/locations/$locationId.tsx?tsr-split",
+      "app/routes/_authed/locations/$locationId.tsx?tsr-split",
+      "app/routes/_authed/climbs/$climbId.tsx?tsr-split",
+      "app/routes/_authed/climbs/$climbId.tsx?tsr-split"
+    ],
+    "assets": [
+      "assets/app-CBNuGcbA.css"
+    ]
+  },
+  "_climbs-BruOxBXE.js": {
+    "file": "assets/climbs-BruOxBXE.js",
+    "name": "climbs",
+    "imports": [
+      "_client-m4m4Z0YJ.js"
+    ]
+  },
+  "_heading-D1ELUsS5.js": {
+    "file": "assets/heading-D1ELUsS5.js",
+    "name": "heading",
+    "imports": [
+      "_client-m4m4Z0YJ.js"
+    ]
+  },
+  "_locations-BODcd5HN.js": {
+    "file": "assets/locations-BODcd5HN.js",
+    "name": "locations",
+    "imports": [
+      "_client-m4m4Z0YJ.js"
+    ]
+  },
+  "app/routes/_authed/climbs/$climbId.tsx?tsr-split": {
+    "file": "assets/_climbId-CHyp2nAM.js",
+    "name": "_climbId",
+    "src": "app/routes/_authed/climbs/$climbId.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_climbs-BruOxBXE.js"
+    ]
+  },
+  "app/routes/_authed/climbs/index.tsx?tsr-split": {
+    "file": "assets/index-BxZzDeUe.js",
+    "name": "index",
+    "src": "app/routes/_authed/climbs/index.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_climbs-BruOxBXE.js"
+    ]
+  },
+  "app/routes/_authed/locations/$locationId.tsx?tsr-split": {
+    "file": "assets/_locationId-D24aIqAq.js",
+    "name": "_locationId",
+    "src": "app/routes/_authed/locations/$locationId.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_locations-BODcd5HN.js"
+    ]
+  },
+  "app/routes/_authed/locations/index.tsx?tsr-split": {
+    "file": "assets/index-CWy93uiW.js",
+    "name": "index",
+    "src": "app/routes/_authed/locations/index.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_locations-BODcd5HN.js"
+    ]
+  },
+  "app/routes/_authed/profile.$.tsx?tsr-split": {
+    "file": "assets/profile._-D3SVnMWS.js",
+    "name": "profile._",
+    "src": "app/routes/_authed/profile.$.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_locations-BODcd5HN.js"
+    ]
+  },
+  "app/routes/_authed/seshes/$seshId.tsx?tsr-split": {
+    "file": "assets/_seshId-BmXFuOA2.js",
+    "name": "_seshId",
+    "src": "app/routes/_authed/seshes/$seshId.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_heading-D1ELUsS5.js"
+    ]
+  },
+  "app/routes/_authed/seshes/index.tsx?tsr-split": {
+    "file": "assets/index-LV8xGfBg.js",
+    "name": "index",
+    "src": "app/routes/_authed/seshes/index.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js",
+      "_heading-D1ELUsS5.js"
+    ]
+  },
+  "app/routes/index.tsx?tsr-split": {
+    "file": "assets/index-DLookipS.js",
+    "name": "index",
+    "src": "app/routes/index.tsx?tsr-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js"
+    ]
+  },
+  "virtual:$vinxi/handler/client": {
+    "file": "assets/client-zLRlkAJC.js",
+    "name": "client",
+    "src": "virtual:$vinxi/handler/client",
+    "isEntry": true,
+    "imports": [
+      "_client-m4m4Z0YJ.js"
+    ]
+  }
+}
