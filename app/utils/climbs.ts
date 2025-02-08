@@ -11,10 +11,10 @@ export type ClimbType = {
   scale: string;
   grade: string;
   attempt: string;
-  pointer: string,
-  notes: string,
-  created_at: string,
-  updated_at: string,
+  pointer: string;
+  notes: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export const fetchClimb = createServerFn({ method: "GET" })

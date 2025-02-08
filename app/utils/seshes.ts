@@ -14,7 +14,7 @@ export type SeshType = {
   created_at: string;
   updated_at: string;
   location: Omit<LocationType, "user_id">;
-  climbs: Omit<ClimbType, 'sesh_id'>[];
+  climbs: Omit<ClimbType, "sesh_id">[];
 };
 
 export const fetchSesh = createServerFn({ method: "GET" })

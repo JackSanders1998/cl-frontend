@@ -1,13 +1,13 @@
-import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
-import { fetchClimbs } from '@/utils/climbs.js'
+import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
+import { fetchClimbs } from "@/utils/climbs.js";
 
-export const Route = createFileRoute('/_authed/climbs/')({
+export const Route = createFileRoute("/_authed/climbs/")({
   loader: () => fetchClimbs(),
   component: ClimbsComponent,
-})
+});
 
 function ClimbsComponent() {
-  const climbs = Route.useLoaderData()
+  const climbs = Route.useLoaderData();
 
   return (
     <div className="p-2 flex gap-2">
@@ -22,17 +22,19 @@ function ClimbsComponent() {
                 }}
                 className="block py-1 text-blue-800 hover:text-blue-600"
                 activeProps={{
-                  className: 'text-black font-bold',
+                  className: "text-black font-bold",
                 }}
               >
-                <div>{climb.climb_type} {climb.grade}</div>
+                <div>
+                  {climb.climb_type} {climb.grade}
+                </div>
               </Link>
             </li>
-          )
+          );
         })}
       </ul>
       <hr />
       <Outlet />
     </div>
-  )
+  );
 }

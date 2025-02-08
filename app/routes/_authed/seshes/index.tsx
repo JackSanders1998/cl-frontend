@@ -1,29 +1,29 @@
-import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
-import { fetchSeshes } from '@/utils/seshes.js'
-import { Badge } from '@/components/badge'
+import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
+import { fetchSeshes } from "@/utils/seshes.js";
+import { Badge } from "@/components/badge";
 import {
   Dropdown,
   DropdownButton,
   DropdownItem,
   DropdownMenu,
-} from '@/components/dropdown'
+} from "@/components/dropdown";
 import {
   EllipsisVerticalIcon,
   MagnifyingGlassIcon,
-} from '@heroicons/react/16/solid'
-import { Divider } from '@/components/divider'
-import { Heading } from '@/components/heading'
-import { Input, InputGroup } from '@/components/input'
-import { Button } from '@/components/button'
-import { Select } from '@/components/select'
+} from "@heroicons/react/16/solid";
+import { Divider } from "@/components/divider";
+import { Heading } from "@/components/heading";
+import { Input, InputGroup } from "@/components/input";
+import { Button } from "@/components/button";
+import { Select } from "@/components/select";
 
-export const Route = createFileRoute('/_authed/seshes/')({
+export const Route = createFileRoute("/_authed/seshes/")({
   loader: () => fetchSeshes(),
   component: SeshesComponent,
-})
+});
 
 function SeshesComponent() {
-  const seshes = Route.useLoaderData()
+  const seshes = Route.useLoaderData();
 
   return (
     <>
@@ -63,7 +63,7 @@ function SeshesComponent() {
                       }}
                       className="block py-1 text-blue-800 hover:text-blue-600"
                       activeProps={{
-                        className: 'text-black font-bold',
+                        className: "text-black font-bold",
                       }}
                     >
                       <img
@@ -82,14 +82,14 @@ function SeshesComponent() {
                         }}
                         className="block py-1 text-blue-800 hover:text-blue-600"
                         activeProps={{
-                          className: 'text-black font-bold',
+                          className: "text-black font-bold",
                         }}
                       >
                         Climbing sesh at {sesh.location.name}
                       </Link>
                     </div>
                     <div className="text-xs/6 text-zinc-500">
-                      {sesh.start} <span aria-hidden="true">·</span>{' '}
+                      {sesh.start} <span aria-hidden="true">·</span>{" "}
                       {sesh.location.name}
                     </div>
                     <div className="text-xs/6 text-zinc-600">
@@ -101,9 +101,9 @@ function SeshesComponent() {
                   {/* If sesh.end doesnt exist, we've got an active sesh */}
                   <Badge
                     className="max-sm:hidden"
-                    color={!!sesh.end ? 'zinc' : 'lime'}
+                    color={!!sesh.end ? "zinc" : "lime"}
                   >
-                    {!!sesh.end ? 'Inactive' : 'Active'}
+                    {!!sesh.end ? "Inactive" : "Active"}
                   </Badge>
                   <Dropdown>
                     <DropdownButton plain aria-label="More options">
@@ -121,5 +121,5 @@ function SeshesComponent() {
         ))}
       </ul>
     </>
-  )
+  );
 }
