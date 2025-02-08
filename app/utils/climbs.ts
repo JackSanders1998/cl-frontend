@@ -2,6 +2,7 @@ import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import axios from "redaxios";
 import { CL_BACKEND_URL } from "./constants";
+import { getWebRequest } from "@tanstack/start/server";
 
 export type ClimbType = {
   climb_id: string;
@@ -21,6 +22,9 @@ export const fetchClimb = createServerFn({ method: "GET" })
   .validator((climbId: string) => climbId)
   .handler(async ({ data }) => {
     console.info(`Fetching climb with id ${data}...`);
+    const request = getWebRequest()
+
+    console.log(request) // GET
     const climb = await axios
       .get<ClimbType>(`${CL_BACKEND_URL}climbs/${data}`, {
         headers: {

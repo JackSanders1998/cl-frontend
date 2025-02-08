@@ -17,11 +17,12 @@ import { NotFound } from "@/components/NotFound.js";
 import appCss from "@/styles/app.css?url";
 import { ApplicationLayout } from "@/components/application-layout";
 
-const fetchClerkAuth = createServerFn({ method: "GET" }).handler(async () => {
-  const { userId } = await getAuth(getWebRequest()!);
+export const fetchClerkAuth = createServerFn({ method: "GET" }).handler(async () => {
+  const { userId, getToken } = await getAuth(getWebRequest()!);
 
   return {
     userId,
+    token: await getToken(),
   };
 });
 
@@ -60,10 +61,11 @@ export const Route = createRootRoute({
     ],
   }),
   beforeLoad: async () => {
-    const { userId } = await fetchClerkAuth();
+    const {userId, token} =  await fetchClerkAuth();
 
     return {
       userId,
+      token
     };
   },
   errorComponent: (props) => {
