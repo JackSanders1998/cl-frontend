@@ -1,1 +1,0 @@
-import{m as e,n as r}from"./client-m4m4Z0YJ.js";const t=r("app_utils_climbs_ts--fetchClimb_createServerFn_handler","/_server"),s=e({method:"GET"}).handler(t),a=r("app_utils_climbs_ts--fetchClimbs_createServerFn_handler","/_server"),l=e({method:"GET"}).handler(a);export{s as a,l as f};

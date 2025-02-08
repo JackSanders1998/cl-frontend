@@ -1,1 +1,0 @@
-import{m as e,n as t}from"./client-m4m4Z0YJ.js";const r=t("app_utils_locations_ts--fetchLocation_createServerFn_handler","/_server"),n=e({method:"GET"}).handler(r),a=t("app_utils_locations_ts--fetchLocations_createServerFn_handler","/_server"),o=e({method:"GET"}).handler(a);export{n as a,o as f};
