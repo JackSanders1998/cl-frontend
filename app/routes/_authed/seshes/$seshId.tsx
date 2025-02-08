@@ -82,14 +82,15 @@ function SeshComponent() {
         />
         <Stat title="Hardest grade" value={"5.11a"} change={"-1.2%"} />
       </div>
-      <Subheading className="mt-12">Recent orders</Subheading>
+      <Subheading className="mt-12">Climbs</Subheading>
       <Table className="mt-4 [--gutter:--spacing(6)] lg:[--gutter:--spacing(10)]">
         <TableHead>
           <TableRow>
-            <TableHeader>Order number</TableHeader>
-            <TableHeader>Purchase date</TableHeader>
-            <TableHeader>Customer</TableHeader>
-            <TableHeader className="text-right">Amount</TableHeader>
+            <TableHeader>Type</TableHeader>
+            <TableHeader>Grade</TableHeader>
+            <TableHeader>Style</TableHeader>
+            <TableHeader>Attempt</TableHeader>
+            <TableHeader className="text-right">Notes</TableHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -99,10 +100,11 @@ function SeshComponent() {
               href={`/climbs/${climb.climb_id}`}
               title={`Order #${climb.climb_id}`}
             >
-              <TableCell>{climb.climb_id}</TableCell>
-              <TableCell className="text-right">{climb.climb_type}</TableCell>
-              <TableCell>{climb.grade}</TableCell>
-              <TableCell className="text-zinc-500">{climb.attempt}</TableCell>
+              <TableCell>{climb.climb_type}</TableCell>
+              <TableCell className="text-zinc-500">{climb.grade}</TableCell>
+              <TableCell>{climb.attempt}</TableCell>
+              <TableCell>{climb.style}</TableCell>
+              <TableCell>{climb.notes}</TableCell>
             </TableRow>
           ))}
         </TableBody>

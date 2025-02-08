@@ -2,7 +2,7 @@ import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 import { fetchLocations } from "@/utils/locations.js";
 
 export const Route = createFileRoute("/_authed/locations/")({
-  loader: () => fetchLocations(),
+  loader: () => fetchLocations({ headers: { context: "test" } }),
   component: LocationsComponent,
 });
 

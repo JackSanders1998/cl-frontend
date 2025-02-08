@@ -3,6 +3,7 @@ import { createServerFn } from "@tanstack/start";
 import axios from "redaxios";
 import { CL_BACKEND_URL } from "./constants";
 import { getWebRequest } from "@tanstack/start/server";
+import { extractToken } from "./middleware/authMiddleware";
 
 export type ClimbType = {
   climb_id: string;
@@ -22,14 +23,14 @@ export const fetchClimb = createServerFn({ method: "GET" })
   .validator((climbId: string) => climbId)
   .handler(async ({ data }) => {
     console.info(`Fetching climb with id ${data}...`);
-    const request = getWebRequest()
+    const request = getWebRequest();
 
-    console.log(request) // GET
+    console.log(request); // GET
     const climb = await axios
       .get<ClimbType>(`${CL_BACKEND_URL}climbs/${data}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MY_TOKEN}`,
+          Authorization: `Bearer ${extractToken()}`,
         },
       })
       .then((r) => r.data)
@@ -52,7 +53,7 @@ export const fetchClimbs = createServerFn({ method: "GET" }).handler(
       .get<Array<ClimbType>>(`${CL_BACKEND_URL}climbs`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MY_TOKEN}`,
+          Authorization: `Bearer ${extractToken()}`,
         },
       })
       .then((r) => r.data.slice(0, 10));

@@ -2,6 +2,8 @@ import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import axios from "redaxios";
 import { CL_BACKEND_URL } from "./constants";
+import { getHeader } from "@tanstack/start/server";
+import { extractToken } from "./middleware/authMiddleware";
 
 export type LocationType = {
   location_id: string;
@@ -20,7 +22,7 @@ export const fetchLocation = createServerFn({ method: "GET" })
       .get<LocationType>(`${CL_BACKEND_URL}locations/${data}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MY_TOKEN}`,
+          Authorization: `Bearer ${extractToken()}`,
         },
       })
       .then((r) => r.data)
@@ -37,13 +39,12 @@ export const fetchLocation = createServerFn({ method: "GET" })
 
 export const fetchLocations = createServerFn({ method: "GET" }).handler(
   async () => {
-    console.info("Fetching locations...");
     await new Promise((r) => setTimeout(r, 1000));
     return axios
       .get<Array<LocationType>>(`${CL_BACKEND_URL}locations`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MY_TOKEN}`,
+          Authorization: `Bearer ${extractToken()}`,
         },
       })
       .then((r) => r.data.slice(0, 10));

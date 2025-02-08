@@ -4,6 +4,7 @@ import axios from "redaxios";
 import { LocationType } from "./locations";
 import { CL_BACKEND_URL } from "./constants";
 import { ClimbType } from "./climbs";
+import { extractToken } from "./middleware/authMiddleware";
 
 export type SeshType = {
   sesh_id: string;
@@ -25,7 +26,7 @@ export const fetchSesh = createServerFn({ method: "GET" })
       .get<SeshType>(`${CL_BACKEND_URL}seshes/${data}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MY_TOKEN}`,
+          Authorization: `Bearer ${extractToken()}`,
         },
       })
       .then((r) => r.data)
@@ -46,7 +47,7 @@ export const fetchSeshes = createServerFn({ method: "GET" }).handler(
       .get<Array<SeshType>>(`${CL_BACKEND_URL}seshes`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MY_TOKEN}`,
+          Authorization: `Bearer ${extractToken()}`,
         },
       })
       .then((r) => r.data.slice(0, 10));
