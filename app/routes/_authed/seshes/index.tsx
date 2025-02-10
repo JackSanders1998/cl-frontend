@@ -46,7 +46,7 @@ function SeshesComponent() {
             </div>
           </div>
         </div>
-        <Button>Create event</Button>
+        <Button>Start sesh</Button>
       </div>
       <ul className="mt-10">
         {seshes.map((sesh, index) => (
@@ -89,7 +89,8 @@ function SeshesComponent() {
                       </Link>
                     </div>
                     <div className="text-xs/6 text-zinc-500">
-                      {sesh.start} <span aria-hidden="true">·</span>{" "}
+                    {new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(sesh.start))} 
+                       <span aria-hidden="true">·</span>{" "}
                       {sesh.location.name}
                     </div>
                     <div className="text-xs/6 text-zinc-600">

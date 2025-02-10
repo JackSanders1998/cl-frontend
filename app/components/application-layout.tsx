@@ -8,7 +8,7 @@ import {
   DropdownLabel,
   DropdownMenu,
 } from "@/components/dropdown";
-import { Navbar } from "@/components/navbar";
+import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "@/components/navbar";
 import {
   Sidebar,
   SidebarBody,
@@ -75,7 +75,26 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarLayout
-      navbar={<Navbar></Navbar>}
+      navbar={
+        <Navbar>
+        <NavbarSpacer />
+        <NavbarSection>
+          <Dropdown>
+            <DropdownButton as={NavbarItem}>
+              <SignedIn>
+                      <span className="flex min-w-0 items-center gap-3">
+                        <UserButton />
+                      </span>
+                    </SignedIn>
+                    <SignedOut>
+                      <SignInButton mode="modal" />
+                    </SignedOut>
+            </DropdownButton>
+            <AccountDropdownMenu anchor="bottom end" />
+          </Dropdown>
+        </NavbarSection>
+      </Navbar>
+      }
       sidebar={
         <Sidebar>
           <SidebarHeader>

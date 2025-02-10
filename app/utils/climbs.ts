@@ -1,8 +1,6 @@
 import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import axios from "redaxios";
-import { CL_BACKEND_URL } from "./constants";
-import { getWebRequest } from "@tanstack/start/server";
 import { extractToken } from "./middleware/authMiddleware";
 
 export type ClimbType = {
@@ -23,11 +21,8 @@ export const fetchClimb = createServerFn({ method: "GET" })
   .validator((climbId: string) => climbId)
   .handler(async ({ data }) => {
     console.info(`Fetching climb with id ${data}...`);
-    const request = getWebRequest();
-
-    console.log(request); // GET
     const climb = await axios
-      .get<ClimbType>(`${CL_BACKEND_URL}climbs/${data}`, {
+      .get<ClimbType>(`${process.env.CL_BACKEND_URL}climbs/${data}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${extractToken()}`,
@@ -50,7 +45,7 @@ export const fetchClimbs = createServerFn({ method: "GET" }).handler(
     console.info("Fetching climbs...");
     await new Promise((r) => setTimeout(r, 1000));
     return axios
-      .get<Array<ClimbType>>(`${CL_BACKEND_URL}climbs`, {
+      .get<Array<ClimbType>>(`${process.env.CL_BACKEND_URL}climbs`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${extractToken()}`,

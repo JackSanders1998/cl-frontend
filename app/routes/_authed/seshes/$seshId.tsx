@@ -59,7 +59,8 @@ function SeshComponent() {
               </Badge>
             </div>
             <div className="mt-2 text-sm/6 text-zinc-500">
-              {sesh.start} <span aria-hidden="true">·</span>{" "}
+              {new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(sesh.start))} 
+              <span aria-hidden="true">·</span>{" "}
               {sesh.location.name}
             </div>
           </div>

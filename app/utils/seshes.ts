@@ -2,7 +2,6 @@ import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import axios from "redaxios";
 import { LocationType } from "./locations";
-import { CL_BACKEND_URL } from "./constants";
 import { ClimbType } from "./climbs";
 import { extractToken } from "./middleware/authMiddleware";
 
@@ -23,7 +22,7 @@ export const fetchSesh = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     console.info(`Fetching sesh with id ${data}...`);
     return axios
-      .get<SeshType>(`${CL_BACKEND_URL}seshes/${data}`, {
+      .get<SeshType>(`${process.env.CL_BACKEND_URL}seshes/${data}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${extractToken()}`,
@@ -44,7 +43,7 @@ export const fetchSeshes = createServerFn({ method: "GET" }).handler(
     console.info("Fetching seshes...");
     await new Promise((r) => setTimeout(r, 1000));
     return await axios
-      .get<Array<SeshType>>(`${CL_BACKEND_URL}seshes`, {
+      .get<Array<SeshType>>(`${process.env.CL_BACKEND_URL}seshes`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${extractToken()}`,
@@ -53,3 +52,24 @@ export const fetchSeshes = createServerFn({ method: "GET" }).handler(
       .then((r) => r.data.slice(0, 10));
   },
 );
+
+export const startSesh = createServerFn({ method: "POST" }).handler(
+  async ({data}) => {
+    console.info("Starting sesh...");
+    await new Promise((r) => setTimeout(r, 1000));
+    return axios
+      .get<SeshType>(`${process.env.CL_BACKEND_URL}seshes/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${extractToken()}`,
+        },
+      })
+      .then((r) => r.data)
+      .catch((err) => {
+        console.error(err);
+        if (err.status === 404) {
+          throw notFound();
+        }
+        throw err;
+      });
+});
