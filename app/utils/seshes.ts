@@ -54,7 +54,7 @@ export const fetchSeshes = createServerFn({ method: "GET" }).handler(
 );
 
 export const startSesh = createServerFn({ method: "POST" }).handler(
-  async ({data}) => {
+  async ({ data }) => {
     console.info("Starting sesh...");
     await new Promise((r) => setTimeout(r, 1000));
     return axios
@@ -72,4 +72,5 @@ export const startSesh = createServerFn({ method: "POST" }).handler(
         }
         throw err;
       });
-});
+  },
+);
