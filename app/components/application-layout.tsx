@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  Dropdown,
-  DropdownButton,
-} from "@/components/dropdown";
+import { Dropdown, DropdownButton } from "@/components/dropdown";
 import {
   Navbar,
   NavbarItem,
@@ -20,9 +17,7 @@ import {
   SidebarSection,
 } from "@/components/sidebar";
 import { SidebarLayout } from "@/components/sidebar-layout";
-import {
-  ChevronUpIcon,
-} from "@heroicons/react/16/solid";
+import { ChevronUpIcon } from "@heroicons/react/16/solid";
 import {
   Cog6ToothIcon,
   MapPinIcon,
