@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Dropdown, DropdownButton } from "@/components/dropdown";
 import {
@@ -51,8 +51,8 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
                 </SignedIn>
                 <SignedOut>
                   <SignInButton
-                    // fallbackRedirectUrl="/seshes"
-                    // signUpFallbackRedirectUrl="/seshes"
+                    fallbackRedirectUrl="/seshes"
+                    signUpFallbackRedirectUrl="/seshes"
                     mode="modal"
                   />
                 </SignedOut>
