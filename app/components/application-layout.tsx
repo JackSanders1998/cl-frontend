@@ -50,7 +50,11 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
                   </span>
                 </SignedIn>
                 <SignedOut>
-                  <SignInButton mode="modal" />
+                  <SignInButton
+                    fallbackRedirectUrl="/seshes"
+                    signUpFallbackRedirectUrl="/seshes"
+                    mode="modal"
+                  />
                 </SignedOut>
               </DropdownButton>
             </Dropdown>
@@ -117,7 +121,11 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
                     />
                   </SignedIn>
                   <SignedOut>
-                    <SignInButton mode="modal" />
+                    <SignInButton
+                      // fallbackRedirectUrl="/seshes"
+                      // signUpFallbackRedirectUrl="/seshes"
+                      mode="modal"
+                    />
                   </SignedOut>
                 </span>
                 <ChevronUpIcon />

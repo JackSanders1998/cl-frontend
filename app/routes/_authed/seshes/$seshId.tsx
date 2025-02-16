@@ -1,4 +1,4 @@
-import { ErrorComponent, createFileRoute } from "@tanstack/react-router";
+import { ErrorComponent, Link, createFileRoute } from "@tanstack/react-router";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import { NotFound } from "@/components/NotFound.js";
 import { fetchSesh } from "@/utils/seshes";
@@ -14,6 +14,7 @@ import {
 } from "@/components/table";
 import { Button } from "@/components/button";
 import { Stat } from "@/components/stat";
+import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 
 export const Route = createFileRoute("/_authed/seshes/$seshId")({
   loader: ({ params: { seshId } }) => fetchSesh({ data: seshId }),
@@ -34,10 +35,13 @@ function SeshComponent() {
   return (
     <>
       <div className="max-lg:hidden">
-        {/* <Link href="/events" className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400">
+        <Link
+          to="/seshes"
+          className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400"
+        >
           <ChevronLeftIcon className="size-4 fill-zinc-400 dark:fill-zinc-500" />
-          Events
-        </Link> */}
+          Seshes
+        </Link>
       </div>
       <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-wrap items-center gap-6">
