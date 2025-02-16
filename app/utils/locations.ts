@@ -45,6 +45,6 @@ export const fetchLocations = createServerFn({ method: "GET" }).handler(
           Authorization: `Bearer ${extractToken()}`,
         },
       })
-      .then((r) => r.data.slice(0, 10));
+      .then((r) => r.data);
   },
 );
