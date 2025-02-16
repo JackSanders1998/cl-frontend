@@ -12,7 +12,6 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthedImport } from './routes/_authed'
-import { Route as IndexImport } from './routes/index'
 import { Route as AuthedSeshesIndexImport } from './routes/_authed/seshes/index'
 import { Route as AuthedLocationsIndexImport } from './routes/_authed/locations/index'
 import { Route as AuthedClimbsIndexImport } from './routes/_authed/climbs/index'
@@ -25,12 +24,6 @@ import { Route as AuthedClimbsClimbIdImport } from './routes/_authed/climbs/$cli
 
 const AuthedRoute = AuthedImport.update({
   id: '/_authed',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -80,13 +73,6 @@ const AuthedClimbsClimbIdRoute = AuthedClimbsClimbIdImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/_authed': {
       id: '/_authed'
       path: ''
@@ -172,7 +158,6 @@ const AuthedRouteWithChildren =
   AuthedRoute._addFileChildren(AuthedRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
   '/climbs/$climbId': typeof AuthedClimbsClimbIdRoute
   '/locations/$locationId': typeof AuthedLocationsLocationIdRoute
@@ -184,7 +169,6 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
   '/climbs/$climbId': typeof AuthedClimbsClimbIdRoute
   '/locations/$locationId': typeof AuthedLocationsLocationIdRoute
@@ -197,7 +181,6 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/_authed/climbs/$climbId': typeof AuthedClimbsClimbIdRoute
   '/_authed/locations/$locationId': typeof AuthedLocationsLocationIdRoute
@@ -211,7 +194,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | ''
     | '/climbs/$climbId'
     | '/locations/$locationId'
@@ -222,7 +204,6 @@ export interface FileRouteTypes {
     | '/seshes'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | ''
     | '/climbs/$climbId'
     | '/locations/$locationId'
@@ -233,7 +214,6 @@ export interface FileRouteTypes {
     | '/seshes'
   id:
     | '__root__'
-    | '/'
     | '/_authed'
     | '/_authed/climbs/$climbId'
     | '/_authed/locations/$locationId'
@@ -246,12 +226,10 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthedRoute: typeof AuthedRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
 }
 
@@ -265,12 +243,8 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_authed"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/_authed": {
       "filePath": "_authed.tsx",
