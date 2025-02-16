@@ -25,7 +25,7 @@ function LocationsComponent() {
                   className: "text-black font-bold",
                 }}
               >
-                <div>{location.name.substring(0, 20)}</div>
+                <div>{location.name}</div>
               </Link>
             </li>
           );

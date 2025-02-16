@@ -48,63 +48,61 @@ function SeshesComponent() {
       </div>
       <ul className="mt-10">
         {seshes.map((sesh, index) => (
-          <>
-            <li key={sesh.sesh_id}>
-              <Divider soft={index > 0} />
-              <div className="flex items-center justify-between">
-                <Link
-                  to="/seshes/$seshId"
-                  params={{
-                    seshId: sesh.sesh_id,
-                  }}
-                  className="flex gap-6 py-6"
-                >
-                  <div key={sesh.sesh_id} className="flex gap-6 py-6">
-                    <div className="w-32 shrink-0">
-                      <img
-                        className="aspect-3/2 rounded-lg shadow-sm"
-                        src="/map.png"
-                        alt=""
-                      />
+          <li key={sesh.sesh_id}>
+            <Divider soft={index > 0} />
+            <div className="flex items-center justify-between">
+              <Link
+                to="/seshes/$seshId"
+                params={{
+                  seshId: sesh.sesh_id,
+                }}
+                className="flex gap-6 py-6"
+              >
+                <div key={sesh.sesh_id} className="flex gap-6 py-6">
+                  <div className="w-32 shrink-0">
+                    <img
+                      className="aspect-3/2 rounded-lg shadow-sm"
+                      src="/map.png"
+                      alt=""
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <div className="text-base/6 font-semibold">
+                      Climbing sesh at {sesh.location.name}
                     </div>
-                    <div className="space-y-1.5">
-                      <div className="text-base/6 font-semibold">
-                        Climbing sesh at {sesh.location.name}
-                      </div>
-                      <div className="text-xs/6 text-zinc-500">
-                        {new Intl.DateTimeFormat("en-US", {
-                          dateStyle: "full",
-                          timeStyle: "medium",
-                        }).format(new Date(sesh.start))}
-                        <span aria-hidden="true">·</span> {sesh.location.name}
-                      </div>
-                      <div className="text-xs/6 text-zinc-600">
-                        {sesh.climbs.length} climbs
-                      </div>
+                    <div className="text-xs/6 text-zinc-500">
+                      {new Intl.DateTimeFormat("en-US", {
+                        dateStyle: "full",
+                        timeStyle: "medium",
+                      }).format(new Date(sesh.start))}
+                      <span aria-hidden="true">·</span> {sesh.location.name}
+                    </div>
+                    <div className="text-xs/6 text-zinc-600">
+                      {sesh.climbs.length} climbs
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    {/* If sesh.end doesnt exist, we've got an active sesh */}
-                    <Badge
-                      className="max-sm:hidden"
-                      color={!!sesh.end ? "zinc" : "lime"}
-                    >
-                      {!!sesh.end ? "Inactive" : "Active"}
-                    </Badge>
-                    <Dropdown>
-                      <DropdownButton plain aria-label="More options">
-                        <EllipsisVerticalIcon />
-                      </DropdownButton>
-                      <DropdownMenu anchor="bottom end">
-                        <DropdownItem>Edit</DropdownItem>
-                        <DropdownItem>Delete</DropdownItem>
-                      </DropdownMenu>
-                    </Dropdown>
-                  </div>
-                </Link>
-              </div>
-            </li>
-          </>
+                </div>
+                <div className="flex items-center gap-4">
+                  {/* If sesh.end doesnt exist, we've got an active sesh */}
+                  <Badge
+                    className="max-sm:hidden"
+                    color={!!sesh.end ? "zinc" : "lime"}
+                  >
+                    {!!sesh.end ? "Inactive" : "Active"}
+                  </Badge>
+                  <Dropdown>
+                    <DropdownButton plain aria-label="More options">
+                      <EllipsisVerticalIcon />
+                    </DropdownButton>
+                    <DropdownMenu anchor="bottom end">
+                      <DropdownItem>Edit</DropdownItem>
+                      <DropdownItem>Delete</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </div>
+              </Link>
+            </div>
+          </li>
         ))}
       </ul>
     </>
