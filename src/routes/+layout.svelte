@@ -2,12 +2,11 @@
 	import '../app.css';
 	import type { Snippet } from 'svelte';
 	import { ClerkProvider } from 'svelte-clerk';
-	import Header from '$lib/components/Header.svelte';
+	import Layout from '$lib/components/Layout.svelte';
 
 	const { children }: { children: Snippet } = $props();
 </script>
 
 <ClerkProvider>
-	<Header />
-	{@render children()}
+	<Layout {children} />
 </ClerkProvider>

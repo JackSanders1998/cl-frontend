@@ -4,7 +4,7 @@
 	const clerkContext = useClerkContext();
 </script>
 
-<nav class="flex items-center justify-between px-8 py-4 shadow">
+<div class="text-white">
 	<div class="flex items-center gap-4">
 		<a href="/">cl-frontend</a>
 	</div>
@@ -23,4 +23,4 @@
 			>
 		{/if}
 	</div>
-</nav>
+</div>

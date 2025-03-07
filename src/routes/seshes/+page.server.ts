@@ -10,10 +10,7 @@ export const load: PageServerLoad = async ({ locals, fetch }) => {
 			Authorization: `Bearer ${await locals.auth?.getToken()}`
 		}
 	});
-
 	const seshes = await res.json();
-
-	console.log('ALL MOOSE', seshes);
 
 	return { seshes };
 };
