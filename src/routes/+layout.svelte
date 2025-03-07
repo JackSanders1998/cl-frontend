@@ -1,6 +1,13 @@
 <script lang="ts">
 	import '../app.css';
-	let { children } = $props();
+	import type { Snippet } from 'svelte';
+	import { ClerkProvider } from 'svelte-clerk';
+	import Header from '$lib/components/Header.svelte';
+
+	const { children }: { children: Snippet } = $props();
 </script>
 
-{@render children()}
+<ClerkProvider>
+	<Header />
+	{@render children()}
+</ClerkProvider>
