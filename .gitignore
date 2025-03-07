@@ -1,25 +1,23 @@
 node_modules
-package-lock.json
-yarn.lock
 
-.env
-.DS_Store
-.cache
-.vercel
+# Output
 .output
-.vinxi
-
-/build/
-/api/
-/server/build
-/public/build
-.vinxi
-# Sentry Config File
-.env.sentry-build-plugin
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-
+.vercel
 .netlify
-dist
+.wrangler
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
