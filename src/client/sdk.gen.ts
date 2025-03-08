@@ -39,6 +39,21 @@ import type {
 	CreateTickResponse
 } from './types.gen';
 import { client as _heyApiClient } from './client.gen';
+import {
+	searchLocationsResponseTransformer,
+	createLocationResponseTransformer,
+	getLocationByLocationIdResponseTransformer,
+	updateLocationByLocationIdResponseTransformer,
+	searchRoutesResponseTransformer,
+	createRouteResponseTransformer,
+	getRouteByRouteIdResponseTransformer,
+	searchSeshesResponseTransformer,
+	createSeshResponseTransformer,
+	getActiveSeshResponseTransformer,
+	getSeshBySeshIdResponseTransformer,
+	updateSeshBySeshIdResponseTransformer,
+	searchTicksResponseTransformer
+} from './transformers.gen';
 
 export type Options<
 	TData extends TDataShape = TDataShape,
@@ -82,6 +97,7 @@ export const searchLocations = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: searchLocationsResponseTransformer,
 		url: '/locations',
 		...options
 	});
@@ -97,6 +113,7 @@ export const createLocation = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: createLocationResponseTransformer,
 		url: '/locations',
 		...options,
 		headers: {
@@ -139,6 +156,7 @@ export const getLocationByLocationId = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: getLocationByLocationIdResponseTransformer,
 		url: '/locations/{location_id}',
 		...options
 	});
@@ -158,6 +176,7 @@ export const updateLocationByLocationId = <ThrowOnError extends boolean = false>
 				type: 'http'
 			}
 		],
+		responseTransformer: updateLocationByLocationIdResponseTransformer,
 		url: '/locations/{location_id}',
 		...options,
 		headers: {
@@ -177,6 +196,7 @@ export const searchRoutes = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: searchRoutesResponseTransformer,
 		url: '/routes',
 		...options
 	});
@@ -192,6 +212,7 @@ export const createRoute = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: createRouteResponseTransformer,
 		url: '/routes',
 		...options,
 		headers: {
@@ -226,6 +247,7 @@ export const getRouteByRouteId = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: getRouteByRouteIdResponseTransformer,
 		url: '/routes/{route_id}',
 		...options
 	});
@@ -241,6 +263,7 @@ export const searchSeshes = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: searchSeshesResponseTransformer,
 		url: '/seshes',
 		...options
 	});
@@ -256,6 +279,7 @@ export const createSesh = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: createSeshResponseTransformer,
 		url: '/seshes',
 		...options,
 		headers: {
@@ -275,6 +299,7 @@ export const getActiveSesh = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: getActiveSeshResponseTransformer,
 		url: '/seshes/active',
 		...options
 	});
@@ -305,6 +330,7 @@ export const getSeshBySeshId = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: getSeshBySeshIdResponseTransformer,
 		url: '/seshes/{sesh_id}',
 		...options
 	});
@@ -321,6 +347,7 @@ export const updateSeshBySeshId = <ThrowOnError extends boolean = false>(
 					type: 'http'
 				}
 			],
+			responseTransformer: updateSeshBySeshIdResponseTransformer,
 			url: '/seshes/{sesh_id}',
 			...options,
 			headers: {
@@ -341,6 +368,7 @@ export const searchTicks = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseTransformer: searchTicksResponseTransformer,
 		url: '/ticks',
 		...options
 	});

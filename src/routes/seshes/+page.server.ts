@@ -1,3 +1,4 @@
+import { searchSeshes } from '../../client';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, fetch }) => {
@@ -10,7 +11,13 @@ export const load: PageServerLoad = async ({ locals, fetch }) => {
 			Authorization: `Bearer ${await locals.auth?.getToken()}`
 		}
 	});
-	const seshes = await res.json();
+	// const seshes = await res.json();
+
+	const heyApi = await searchSeshes();
+
+	console.log(heyApi);
+
+	const seshes = await heyApi.data;
 
 	return { seshes };
 };
