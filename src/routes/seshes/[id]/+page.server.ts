@@ -1,14 +1,14 @@
+import { getSeshBySeshId, type GetSeshBySeshIdData } from '../../../client';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ locals, params, fetch }) => {
-	// locals.security.isAuthenticated();
+export const load: PageServerLoad = async ({ params }) => {
+	const routeParams: GetSeshBySeshIdData = {
+		path: {
+			sesh_id: params.id
+		},
+		url: '/seshes/{sesh_id}'
+	};
+	const res = await getSeshBySeshId(routeParams);
 
-	const res = await fetch(`http://127.0.0.1:8000/seshes/${params.id}`, {
-		headers: {
-			Authorization: `Bearer ${await locals.auth?.getToken()}`
-		}
-	});
-	const seshes = await res.json();
-
-	return { seshes };
+	return { seshes: res.data };
 };

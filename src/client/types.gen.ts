@@ -63,12 +63,12 @@ export const Environment = {
 
 export type Location = {
 	author: string;
-	created_at: Date;
+	created_at: string;
 	description?: string | null;
 	environment: Environment;
 	location_id: string;
 	name: string;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type LocationSearchParams = {
@@ -78,54 +78,54 @@ export type LocationSearchParams = {
 export type Preference = {
 	boulder_scale: string;
 	color_scheme: string;
-	created_at: Date;
+	created_at: string;
 	preference_id: string;
 	sport_scale: string;
 	theme: string;
-	updated_at: Date;
+	updated_at: string;
 	user_id: string;
 };
 
 export type Route = {
 	author: string;
-	created_at: Date;
+	created_at: string;
 	description?: string | null;
 	disciplines: Array<Discipline>;
 	grade: string;
 	location_id: string;
 	route_id: string;
 	scale: Scale;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type RouteWithLocation = {
 	author: string;
-	created_at: Date;
+	created_at: string;
 	description?: string | null;
 	disciplines: Array<Discipline>;
 	grade: string;
 	location: Location;
 	route_id: string;
 	scale: Scale;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type RouteWithLocationSqlx = {
 	author: string;
-	created_at: Date;
+	created_at: string;
 	description?: string | null;
 	disciplines: Array<Discipline>;
 	environment: Environment;
 	grade: string;
 	location_author: string;
-	location_created_at: Date;
+	location_created_at: string;
 	location_description?: string | null;
 	location_id: string;
-	location_updated_at: Date;
+	location_updated_at: string;
 	name: string;
 	route_id: string;
 	scale: Scale;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type Scale = 'verm' | 'font' | 'yosemite' | 'french';
@@ -138,66 +138,66 @@ export const Scale = {
 } as const;
 
 export type SeshRow = {
-	created_at: Date;
-	end?: Date | null;
+	created_at: string;
+	end?: string | null;
 	location_id: string;
 	notes?: string | null;
 	sesh_id: string;
-	start: Date;
-	updated_at: Date;
+	start: string;
+	updated_at: string;
 	user_id: string;
 };
 
 export type SeshWithLocation = {
-	created_at: Date;
-	end?: Date | null;
+	created_at: string;
+	end?: string | null;
 	location: Location;
 	notes?: string | null;
 	sesh_id: string;
-	start: Date;
-	updated_at: Date;
+	start: string;
+	updated_at: string;
 	user_id: string;
 };
 
 export type SeshWithLocationAndTicks = {
-	created_at: Date;
-	end?: Date | null;
+	created_at: string;
+	end?: string | null;
 	location: Location;
 	notes?: string | null;
 	sesh_id: string;
-	start: Date;
+	start: string;
 	ticks: Array<TickWithRoute>;
-	updated_at: Date;
+	updated_at: string;
 	user_id: string;
 };
 
 export type SeshWithLocationSqlx = {
 	author: string;
-	created_at: Date;
+	created_at: string;
 	description?: string | null;
-	end?: Date | null;
+	end?: string | null;
 	environment: Environment;
-	location_created_at: Date;
+	location_created_at: string;
 	location_id: string;
-	location_updated_at: Date;
+	location_updated_at: string;
 	name: string;
 	notes?: string | null;
 	sesh_id: string;
-	start: Date;
-	updated_at: Date;
+	start: string;
+	updated_at: string;
 	user_id: string;
 };
 
 export type TickRow = {
 	attempt: Attempt;
-	created_at: Date;
+	created_at: string;
 	discipline: Discipline;
 	lap_group?: string | null;
 	notes?: string | null;
 	route_id: string;
 	sesh_id: string;
 	tick_id: string;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type TickSearchParams = {
@@ -206,7 +206,7 @@ export type TickSearchParams = {
 
 export type TickWithRoute = {
 	attempt: Attempt;
-	created_at: Date;
+	created_at: string;
 	discipline: Discipline;
 	lap_group?: string | null;
 	notes?: string | null;
@@ -214,13 +214,13 @@ export type TickWithRoute = {
 	route_id: string;
 	sesh_id: string;
 	tick_id: string;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type TickWithRouteSqlx = {
 	attempt: Attempt;
 	author: string;
-	created_at: Date;
+	created_at: string;
 	description?: string | null;
 	discipline: Discipline;
 	disciplines: Array<Discipline>;
@@ -228,19 +228,19 @@ export type TickWithRouteSqlx = {
 	grade: string;
 	lap_group?: string | null;
 	location_author: string;
-	location_created_at: Date;
+	location_created_at: string;
 	location_description?: string | null;
 	location_id: string;
-	location_updated_at: Date;
+	location_updated_at: string;
 	name: string;
 	notes?: string | null;
-	route_created_at: Date;
+	route_created_at: string;
 	route_id: string;
-	route_updated_at: Date;
+	route_updated_at: string;
 	scale: Scale;
 	sesh_id: string;
 	tick_id: string;
-	updated_at: Date;
+	updated_at: string;
 };
 
 export type UpdateLocation = {
