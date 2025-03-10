@@ -1,350 +1,196 @@
 <script lang="ts">
-	import Header from '$lib/components/Auth.svelte';
+	import Auth from '$lib/components/Auth.svelte';
+	import type { Snippet } from 'svelte';
+	import { fade, slide } from 'svelte/transition';
 
-	let { children } = $props();
+	const { children }: { children: Snippet } = $props();
+	let isSideBarOpen = $state<boolean>(false);
 
-	// const { children }: { children: Snippet } = $props();
+	const logoIcon = `
+	<div class="h-8 w-auto text-green-800">
+		<svg
+			class="size-6 shrink-0 class="h-8 w-auto bg-purple-500"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			aria-hidden="true"
+			data-slot="icon"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="m16 4l-3.621 3.621a3 3 0 0 1-2.122.879H6.5l-2.121 2.121a3 3 0 0 0-.879 2.122V16m3-5v4.556a1.945 1.945 0 0 0 3.32 1.374l3.43-3.43h.25l.296.592A7.08 7.08 0 0 0 17.5 17.5m-5.5.498l-.056-.11l-.194-.388zm0 0A10.62 10.62 0 0 0 17.5 23m2 1V8L17 5.5m-5-5L14.5 3m-4 5.5v5m-2.805-7s-1.81-.557-2.135-1.776a1.77 1.77 0 0 1 1.242-2.163a1.75 1.75 0 0 1 2.146 1.25c.324 1.219-.962 2.61-.962 2.61z"
+			/>
+		</svg>
+	</div>`;
+
+	const sideBarComponents = [
+		{
+			name: 'Home',
+			icon: `<svg
+						class="size-6 shrink-0"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						aria-hidden="true"
+						data-slot="icon"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"						/>
+					</svg>`,
+			href: '/'
+		},
+		{
+			name: 'Seshes',
+			icon: `<svg
+						class="size-6 shrink-0"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						aria-hidden="true"
+						data-slot="icon"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m16 4l-3.621 3.621a3 3 0 0 1-2.122.879H6.5l-2.121 2.121a3 3 0 0 0-.879 2.122V16m3-5v4.556a1.945 1.945 0 0 0 3.32 1.374l3.43-3.43h.25l.296.592A7.08 7.08 0 0 0 17.5 17.5m-5.5.498l-.056-.11l-.194-.388zm0 0A10.62 10.62 0 0 0 17.5 23m2 1V8L17 5.5m-5-5L14.5 3m-4 5.5v5m-2.805-7s-1.81-.557-2.135-1.776a1.77 1.77 0 0 1 1.242-2.163a1.75 1.75 0 0 1 2.146 1.25c.324 1.219-.962 2.61-.962 2.61z"
+						/>
+					</svg>`,
+			href: '/seshes'
+		},
+		{
+			name: 'Ticks',
+			icon: `<svg
+						class="size-6 shrink-0"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						aria-hidden="true"
+						data-slot="icon"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M16.972 6.251a2 2 0 0 0-2.72.777l-3.713 6.682l-2.125-2.125a2 2 0 1 0-2.828 2.828l4 4c.378.379.888.587 1.414.587l.277-.02a2 2 0 0 0 1.471-1.009l5-9a2 2 0 0 0-.776-2.72"
+						/>
+					</svg>`,
+			href: '/ticks'
+		},
+		{
+			name: 'Routes',
+			icon: `<svg
+						class="size-6 shrink-0"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						aria-hidden="true"
+						data-slot="icon"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3 19a2 2 0 1 0 4 0a2 2 0 0 0-4 0M19 7a2 2 0 1 0 0-4a2 2 0 0 0 0 4m-8 12h5.5a3.5 3.5 0 0 0 0-7h-8a3.5 3.5 0 0 1 0-7H13"
+						/>
+					</svg>`,
+			href: '/routes'
+		}
+	];
 </script>
 
-<!-- <Header /> -->
-
-<!--
-  This example requires updating your template:
-
-  ```
-  <html class="h-full bg-white">
-  <body class="h-full">
-  ```
--->
 <div>
 	<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-	<div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
-		<!--
-		Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-  
-		Entering: "transition-opacity ease-linear duration-300"
-		  From: "opacity-0"
-		  To: "opacity-100"
-		Leaving: "transition-opacity ease-linear duration-300"
-		  From: "opacity-100"
-		  To: "opacity-0"
-	  -->
-		<div class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
-
-		<div class="fixed inset-0 flex">
-			<!--
-		  Off-canvas menu, show/hide based on off-canvas menu state.
-  
-		  Entering: "transition ease-in-out duration-300 transform"
-			From: "-translate-x-full"
-			To: "translate-x-0"
-		  Leaving: "transition ease-in-out duration-300 transform"
-			From: "translate-x-0"
-			To: "-translate-x-full"
-		-->
-			<div class="relative mr-16 flex w-full max-w-xs flex-1">
-				<!--
-			Close button, show/hide based on off-canvas menu state.
-  
-			Entering: "ease-in-out duration-300"
-			  From: "opacity-0"
-			  To: "opacity-100"
-			Leaving: "ease-in-out duration-300"
-			  From: "opacity-100"
-			  To: "opacity-0"
-		  -->
-				<div class="absolute top-0 left-full flex w-16 justify-center pt-5">
-					<button type="button" class="-m-2.5 p-2.5">
-						<span class="sr-only">Close sidebar</span>
-						<svg
-							class="size-6 text-white"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							aria-hidden="true"
-							data-slot="icon"
-						>
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-						</svg>
-					</button>
-				</div>
-
-				<!-- Sidebar component, swap this element with another sidebar if you like -->
-				<div
-					class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10"
-				>
-					<div class="flex h-16 shrink-0 items-center">
-						<img
-							class="h-8 w-auto"
-							src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-							alt="Your Company"
-						/>
+	{#if isSideBarOpen}
+		<div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+			<!-- Fade background when sidebar is open -->
+			<div
+				class="fixed inset-0 bg-gray-900/80"
+				aria-hidden="true"
+				transition:fade={{ duration: 300 }}
+			></div>
+			<div class="fixed inset-0 flex" transition:slide={{ duration: 300, axis: 'x' }}>
+				<div class="relative mr-16 flex w-full max-w-xs flex-1">
+					<div class="absolute top-0 left-full flex w-16 justify-center pt-5">
+						<button type="button" class="-m-2.5 p-2.5" onclick={() => (isSideBarOpen = false)}>
+							<span class="sr-only">Close sidebar</span>
+							<svg
+								class="size-6 text-white"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								aria-hidden="true"
+								data-slot="icon"
+							>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+							</svg>
+						</button>
 					</div>
-					<nav class="flex flex-1 flex-col">
-						<ul role="list" class="flex flex-1 flex-col gap-y-7">
-							<li>
-								<ul role="list" class="-mx-2 space-y-1">
-									<li>
-										<!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md bg-gray-800 p-2 text-sm/6 font-semibold text-white"
-										>
-											<svg
-												class="size-6 shrink-0"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												aria-hidden="true"
-												data-slot="icon"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-												/>
-											</svg>
-											Analytics
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-										>
-											<svg
-												class="size-6 shrink-0"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												aria-hidden="true"
-												data-slot="icon"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
-												/>
-											</svg>
-											Seshes
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-										>
-											<svg
-												class="size-6 shrink-0"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												aria-hidden="true"
-												data-slot="icon"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
-												/>
-											</svg>
-											Ticks
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-										>
-											<svg
-												class="size-6 shrink-0"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												aria-hidden="true"
-												data-slot="icon"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-												/>
-											</svg>
-											Routes
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-										>
-											<svg
-												class="size-6 shrink-0"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												aria-hidden="true"
-												data-slot="icon"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
-												/>
-											</svg>
-											Locations
-										</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
+
+					<!-- Sidebar component-->
+					<div
+						class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10"
+					>
+						<div class="flex h-16 shrink-0 items-center">
+							{@html logoIcon}
+						</div>
+						<nav class="flex flex-1 flex-col">
+							<ul role="list" class="flex flex-1 flex-col gap-y-7">
+								<li>
+									<ul role="list" class="-mx-2 space-y-1">
+										{#each sideBarComponents as sideBarComponent}
+											<li>
+												<a
+													href={sideBarComponent.href}
+													class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
+												>
+													{@html sideBarComponent.icon}
+													{sideBarComponent.name}
+												</a>
+											</li>
+										{/each}
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{/if}
 
 	<!-- Static sidebar for desktop -->
 	<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-		<!-- Sidebar component, swap this element with another sidebar if you like -->
-		<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6">
+		<!-- Sidebar component -->
+		<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-black/10 px-6 ring-1 ring-white/5">
 			<div class="flex h-16 shrink-0 items-center">
-				<img
-					class="h-8 w-auto"
-					src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-					alt="Your Company"
-				/>
+				{@html logoIcon}
 			</div>
 			<nav class="flex flex-1 flex-col">
 				<ul role="list" class="flex flex-1 flex-col gap-y-7">
 					<li>
 						<ul role="list" class="-mx-2 space-y-1">
-							<li>
-								<!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-								<a
-									href="#"
-									class="group flex gap-x-3 rounded-md bg-gray-800 p-2 text-sm/6 font-semibold text-white"
-								>
-									<svg
-										class="size-6 shrink-0"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										aria-hidden="true"
-										data-slot="icon"
+							{#each sideBarComponents as sideBarComponent}
+								<li>
+									<a
+										href={sideBarComponent.href}
+										class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
 									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-										/>
-									</svg>
-									Analytics
-								</a>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-								>
-									<svg
-										class="size-6 shrink-0"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										aria-hidden="true"
-										data-slot="icon"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
-										/>
-									</svg>
-									Seshes
-								</a>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-								>
-									<svg
-										class="size-6 shrink-0"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										aria-hidden="true"
-										data-slot="icon"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
-										/>
-									</svg>
-									Ticks
-								</a>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-								>
-									<svg
-										class="size-6 shrink-0"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										aria-hidden="true"
-										data-slot="icon"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-										/>
-									</svg>
-									Routes
-								</a>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
-								>
-									<svg
-										class="size-6 shrink-0"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										aria-hidden="true"
-										data-slot="icon"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
-										/>
-									</svg>
-									Locations
-								</a>
-							</li>
+										{@html sideBarComponent.icon}
+										{sideBarComponent.name}
+									</a>
+								</li>
+							{/each}
 						</ul>
 					</li>
 					<li class="-mx-6 mt-auto">
-						<Header />
+						<Auth />
 					</li>
 				</ul>
 			</nav>
@@ -354,7 +200,11 @@
 	<div
 		class="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-xs sm:px-6 lg:hidden"
 	>
-		<button type="button" class="-m-2.5 p-2.5 text-gray-400 lg:hidden">
+		<button
+			type="button"
+			class="-m-2.5 p-2.5 text-gray-400 lg:hidden"
+			onclick={() => (isSideBarOpen = true)}
+		>
 			<span class="sr-only">Open sidebar</span>
 			<svg
 				class="size-6"
@@ -373,14 +223,7 @@
 			</svg>
 		</button>
 		<div class="flex-1 text-sm/6 font-semibold text-white">Dashboard</div>
-		<a href="#">
-			<span class="sr-only">Your profile</span>
-			<img
-				class="size-8 rounded-full bg-gray-800"
-				src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-				alt=""
-			/>
-		</a>
+		<Auth />
 	</div>
 
 	<main class="py-10 lg:pl-72">
