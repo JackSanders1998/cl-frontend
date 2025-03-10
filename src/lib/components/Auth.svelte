@@ -1,26 +1,14 @@
 <script lang="ts">
-	import { useClerkContext } from 'svelte-clerk';
+	import { SignedIn, SignInButton, useClerkContext, UserButton } from 'svelte-clerk';
 
 	const clerkContext = useClerkContext();
 </script>
 
-<div class="text-white">
-	<div class="flex items-center gap-4">
-		<a href="/">cl-frontend</a>
-	</div>
-	<div>
-		{#if clerkContext.auth.userId}
-			<button
-				onclick={() => {
-					clerkContext.clerk?.signOut();
-				}}>Sign Out</button
-			>
-		{:else}
-			<button
-				onclick={() => {
-					clerkContext.clerk?.openSignIn();
-				}}>Sign In</button
-			>
-		{/if}
-	</div>
+<div class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400">
+	{#if clerkContext.auth.userId}
+		<UserButton />
+		{clerkContext.user?.fullName}
+	{:else}
+		<SignInButton />
+	{/if}
 </div>
