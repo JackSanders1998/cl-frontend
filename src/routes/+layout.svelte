@@ -8,5 +8,7 @@
 </script>
 
 <ClerkProvider>
-	<Layout {children} />
+	<Layout>
+		{@render children()}
+	</Layout>
 </ClerkProvider>
