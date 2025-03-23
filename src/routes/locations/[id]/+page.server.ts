@@ -1,7 +1,8 @@
 import { getSeshBySeshId, type GetSeshBySeshIdData } from '../../../client';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ locals, params }) => {
+	locals.security.isAuthenticated();
 	const routeParams: GetSeshBySeshIdData = {
 		path: {
 			sesh_id: params.id

@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { createRoute, Discipline, Scale } from '../../../client';
 
 const create = async ({ locals, request }: { locals: App.Locals; request: Request }) => {
+	locals.security.isAuthenticated();
 	const data = await request.formData();
 	const description = data.get('description') as string;
 	const disciplines = data.getAll('disciplines') as Discipline[];
@@ -45,9 +46,9 @@ const create = async ({ locals, request }: { locals: App.Locals; request: Reques
 	});
 
 	if (res.response.status !== 201) {
-		return fail(res.response.status, res.data
-			? { ...res.data, status: res.response.status }
-			: { status: res.response.status }
+		return fail(
+			res.response.status,
+			res.data ? { ...res.data, status: res.response.status } : { status: res.response.status }
 		);
 	}
 

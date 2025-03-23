@@ -4,6 +4,7 @@
 	import type { Snippet } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
 	import Breadcrumb from './Breadcrumb.svelte';
+	import { SignedIn, SignedOut } from 'svelte-clerk';
 
 	const { children }: { children: Snippet } = $props();
 	let isSideBarOpen = $state<boolean>(false);
@@ -224,14 +225,20 @@
 				/>
 			</svg>
 		</button>
-		
-		<div class="flex-1 text-sm/6 font-semibold text-white"><Breadcrumb	/></div>
+
+		<div class="flex-1 text-sm/6 font-semibold text-white"><Breadcrumb /></div>
 		<Auth />
 	</div>
 
 	<main class="py-10 lg:pl-72">
 		<div class="px-4 sm:px-6 lg:px-8">
+			<!-- <SignedIn> -->
 			{@render children()}
+			<!-- </SignedIn> -->
+			<!-- 			
+			<SignedOut>
+				<p>You are not signed in!</p>
+			</SignedOut> -->
 		</div>
 	</main>
 </div>
