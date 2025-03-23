@@ -2,7 +2,7 @@
 	let { data, form } = $props();
 </script>
 
-{#if data.routes && data.routes.length > 0}
+{#if data.locations && data.locations.length > 0}
 	<div class="bg-gray-900">
 		<div class="mx-auto max-w-7xl">
 			<div class="bg-gray-900 py-10">
@@ -44,7 +44,7 @@
 										</tr>
 									</thead>
 									<tbody class="divide-y divide-gray-800">
-										{#each data.routes as route}
+										{#each data.locations as location}
 											<tr>
 												<td
 													class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-white sm:pl-0"

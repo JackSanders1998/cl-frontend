@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import Auth from '$lib/components/Auth.svelte';
 	import type { Snippet } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
+	import Breadcrumb from './Breadcrumb.svelte';
 
 	const { children }: { children: Snippet } = $props();
 	let isSideBarOpen = $state<boolean>(false);
@@ -222,7 +224,8 @@
 				/>
 			</svg>
 		</button>
-		<div class="flex-1 text-sm/6 font-semibold text-white">Dashboard</div>
+		
+		<div class="flex-1 text-sm/6 font-semibold text-white"><Breadcrumb	/></div>
 		<Auth />
 	</div>
 
