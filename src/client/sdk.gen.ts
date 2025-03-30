@@ -39,6 +39,25 @@ import type {
 	CreateTickResponse
 } from './types.gen';
 import { client as _heyApiClient } from './client.gen';
+import {
+	zSearchLocationsResponse,
+	zCreateLocationResponse,
+	zDeleteLocationByLocationIdResponse,
+	zGetLocationByLocationIdResponse,
+	zUpdateLocationByLocationIdResponse,
+	zSearchRoutesResponse,
+	zCreateRouteResponse,
+	zDeleteRouteResponse,
+	zGetRouteByRouteIdResponse,
+	zSearchSeshesResponse,
+	zCreateSeshResponse,
+	zGetActiveSeshResponse,
+	zDeleteSeshResponse,
+	zGetSeshBySeshIdResponse,
+	zUpdateSeshBySeshIdResponse,
+	zSearchTicksResponse,
+	zCreateTickResponse
+} from './zod.gen';
 
 export type Options<
 	TData extends TDataShape = TDataShape,
@@ -82,6 +101,9 @@ export const searchLocations = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zSearchLocationsResponse.parseAsync(data);
+		},
 		url: '/locations',
 		...options
 	});
@@ -97,6 +119,9 @@ export const createLocation = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zCreateLocationResponse.parseAsync(data);
+		},
 		url: '/locations',
 		...options,
 		headers: {
@@ -120,6 +145,9 @@ export const deleteLocationByLocationId = <ThrowOnError extends boolean = false>
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zDeleteLocationByLocationIdResponse.parseAsync(data);
+		},
 		url: '/locations/{location_id}',
 		...options
 	});
@@ -139,6 +167,9 @@ export const getLocationByLocationId = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zGetLocationByLocationIdResponse.parseAsync(data);
+		},
 		url: '/locations/{location_id}',
 		...options
 	});
@@ -158,6 +189,9 @@ export const updateLocationByLocationId = <ThrowOnError extends boolean = false>
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zUpdateLocationByLocationIdResponse.parseAsync(data);
+		},
 		url: '/locations/{location_id}',
 		...options,
 		headers: {
@@ -177,6 +211,9 @@ export const searchRoutes = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zSearchRoutesResponse.parseAsync(data);
+		},
 		url: '/routes',
 		...options
 	});
@@ -192,6 +229,9 @@ export const createRoute = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zCreateRouteResponse.parseAsync(data);
+		},
 		url: '/routes',
 		...options,
 		headers: {
@@ -211,6 +251,9 @@ export const deleteRoute = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zDeleteRouteResponse.parseAsync(data);
+		},
 		url: '/routes/{route_id}',
 		...options
 	});
@@ -226,6 +269,9 @@ export const getRouteByRouteId = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zGetRouteByRouteIdResponse.parseAsync(data);
+		},
 		url: '/routes/{route_id}',
 		...options
 	});
@@ -241,6 +287,9 @@ export const searchSeshes = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zSearchSeshesResponse.parseAsync(data);
+		},
 		url: '/seshes',
 		...options
 	});
@@ -256,6 +305,9 @@ export const createSesh = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zCreateSeshResponse.parseAsync(data);
+		},
 		url: '/seshes',
 		...options,
 		headers: {
@@ -275,6 +327,9 @@ export const getActiveSesh = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zGetActiveSeshResponse.parseAsync(data);
+		},
 		url: '/seshes/active',
 		...options
 	});
@@ -290,6 +345,9 @@ export const deleteSesh = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zDeleteSeshResponse.parseAsync(data);
+		},
 		url: '/seshes/{sesh_id}',
 		...options
 	});
@@ -305,6 +363,9 @@ export const getSeshBySeshId = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zGetSeshBySeshIdResponse.parseAsync(data);
+		},
 		url: '/seshes/{sesh_id}',
 		...options
 	});
@@ -321,6 +382,9 @@ export const updateSeshBySeshId = <ThrowOnError extends boolean = false>(
 					type: 'http'
 				}
 			],
+			responseValidator: async (data) => {
+				return await zUpdateSeshBySeshIdResponse.parseAsync(data);
+			},
 			url: '/seshes/{sesh_id}',
 			...options,
 			headers: {
@@ -341,6 +405,9 @@ export const searchTicks = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zSearchTicksResponse.parseAsync(data);
+		},
 		url: '/ticks',
 		...options
 	});
@@ -356,6 +423,9 @@ export const createTick = <ThrowOnError extends boolean = false>(
 				type: 'http'
 			}
 		],
+		responseValidator: async (data) => {
+			return await zCreateTickResponse.parseAsync(data);
+		},
 		url: '/ticks',
 		...options,
 		headers: {

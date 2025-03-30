@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { createRoute, Discipline, Scale } from '../../../client';
 
 const create = async ({ locals, request }: { locals: App.Locals; request: Request }) => {
@@ -26,14 +26,6 @@ const create = async ({ locals, request }: { locals: App.Locals; request: Reques
 		return fail(400, { scale, missing: true });
 	}
 
-	console.log({
-		description,
-		disciplines,
-		grade,
-		location_id,
-		scale
-	});
-
 	const res = await createRoute({
 		body: {
 			author: locals.auth.userId,
@@ -52,9 +44,7 @@ const create = async ({ locals, request }: { locals: App.Locals; request: Reques
 		);
 	}
 
-	console.log(res);
-
-	redirect(300, '/routes');
+	// redirect(300, '/routes');
 
 	return { success: true };
 };

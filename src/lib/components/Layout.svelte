@@ -103,6 +103,25 @@
 						/>
 					</svg>`,
 			href: '/routes'
+		},
+		{
+			name: 'Locations',
+			icon: `<svg
+						class="size-6 shrink-0"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						aria-hidden="true"
+						data-slot="icon"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3 19a2 2 0 1 0 4 0a2 2 0 0 0-4 0M19 7a2 2 0 1 0 0-4a2 2 0 0 0 0 4m-8 12h5.5a3.5 3.5 0 0 0 0-7h-8a3.5 3.5 0 0 1 0-7H13"
+						/>
+					</svg>`,
+			href: '/locations'
 		}
 	];
 </script>
@@ -232,13 +251,7 @@
 
 	<main class="py-10 lg:pl-72">
 		<div class="px-4 sm:px-6 lg:px-8">
-			<!-- <SignedIn> -->
 			{@render children()}
-			<!-- </SignedIn> -->
-			<!-- 			
-			<SignedOut>
-				<p>You are not signed in!</p>
-			</SignedOut> -->
 		</div>
 	</main>
 </div>

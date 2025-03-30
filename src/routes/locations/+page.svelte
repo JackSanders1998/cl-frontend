@@ -9,15 +9,15 @@
 				<div class="px-4 sm:px-6 lg:px-8">
 					<div class="sm:flex sm:items-center">
 						<div class="sm:flex-auto">
-							<h1 class="text-base font-semibold text-white">Routes</h1>
-							<p class="mt-2 text-sm text-gray-300">A list of all routes.</p>
+							<h1 class="text-base font-semibold text-white">Location</h1>
+							<p class="mt-2 text-sm text-gray-300">A list of all locations.</p>
 						</div>
 						<div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
 							<a
-								href="/routes/new"
+								href="/locations/new"
 								type="button"
 								class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-								>New Route<span class="sr-only"></span></a
+								>New Location<span class="sr-only"></span></a
 							>
 						</div>
 					</div>
@@ -48,18 +48,18 @@
 											<tr>
 												<td
 													class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-white sm:pl-0"
-													>{route.grade}</td
+													>{location.name} / {location.environment}</td
 												>
 												<td class="px-3 py-4 text-sm whitespace-nowrap text-gray-300"
-													>{route.disciplines}</td
+													>{location.description}</td
 												>
 												<td class="px-3 py-4 text-sm whitespace-nowrap text-gray-300"
-													>{route.author}</td
+													>{location.author}</td
 												>
 												<td
 													class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0"
 												>
-													<a href="/routes" class="text-indigo-400 hover:text-indigo-300"
+													<a href="/locations" class="text-indigo-400 hover:text-indigo-300"
 														>Edit<span class="sr-only"></span></a
 													>
 												</td>
@@ -75,5 +75,5 @@
 		</div>
 	</div>
 {:else}
-	<p>No routes found.</p>
+	<p>No locations found.</p>
 {/if}

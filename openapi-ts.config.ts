@@ -13,9 +13,14 @@ export default {
 		'@tanstack/svelte-query',
 		'@hey-api/schemas',
 		'@hey-api/sdk',
+		'zod',
 		{
-			enums: 'javascript',
-			name: '@hey-api/typescript'
+			name: '@hey-api/typescript',
+			enums: 'javascript'
+		},
+		{
+			name: '@hey-api/sdk',
+			validator: true
 		}
 	]
 };
